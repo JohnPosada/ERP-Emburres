@@ -1,80 +1,91 @@
-import { useFormik } from 'formik';
+import { Field, FormikProvider, useFormik } from 'formik';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { startSignInWhitEmailandPassword } from '../../store/auth/thunks';
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       username: '',
+      rol: '',
     },
 
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      // dispatch(startSignInWhitEmailandPassword(values.email, values.password));
     },
   });
 
   return (
     <>
-      <form className="w-full" onSubmit={formik.handleSubmit}>
-        <label className="text-white " htmlFor="email">
-          Correo electrónico
-        </label>
+      <FormikProvider value={formik}>
+        <form className="w-full" onSubmit={formik.handleSubmit}>
+          <label className="text-black font-medium " htmlFor="email">
+            Correo electrónico
+          </label>
 
-        <input
-          className="shadow appearance-none border rounded w-full my-2 py-1 px-3 mr-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="email"
-          placeholder="example@gmail.com"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-        />
+          <input
+            className="shadow appearance-none border rounded w-full my-2 py-1 px-3 mr-2 mb-3 text-gray-700 leading-tight focus:shadow-outline"
+            id="email"
+            placeholder="example@gmail.com"
+            name="email"
+            type="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
 
-        <label className="text-white" htmlFor="username">
-          Nombre de usuario
-        </label>
+          <label className="text-black font-medium " htmlFor="username">
+            Nombre de usuario
+          </label>
 
-        <input
-          className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          placeholder="username"
-          name="username"
-          type="username"
-          onChange={formik.handleChange}
-          value={formik.values.username}
-        />
-        <label className="text-white" htmlFor="password">
-          Contraseña
-        </label>
+          <input
+            className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:shadow-outline"
+            id="username"
+            placeholder="username"
+            name="username"
+            type="username"
+            onChange={formik.handleChange}
+            value={formik.values.username}
+          />
+          <label className="text-black font-medium " htmlFor="password">
+            Contraseña
+          </label>
 
-        <input
-          className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          placeholder="********"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-        />
-        <div className="w-full flex justify-between pt-2">
-          <p className="text-white">¿Ya tienes una cuenta?</p>
-          <Link
-            to="/auth/login"
-            className="underline text-white text-right hover:text-blue-700"
+          <input
+            className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:shadow-outline"
+            id="password"
+            placeholder="********"
+            name="password"
+            type="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+          <label className="text-black font-medium " htmlFor="rol">
+            rol
+          </label>
+
+          <Field
+            as="select"
+            className="shadow bg-white border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:shadow-outline"
+            id="rol"
+            name="rol"
           >
-            Ingresar
-          </Link>
-        </div>
+            <option value="rol1">rol1</option>
+            <option value="rol2">rol2</option>
+            <option value="rol3">rol3</option>
+          </Field>
 
-        <button
-          className="w-full inline-block shadow-yellow-400 shadow bg-gray-300 my-6 rounded-full p-2 hover:bg-gray-400"
-          type="submit"
-        >
-          Registrar
-        </button>
-      </form>
+          <button
+            className="w-full inline-block border border-black hover:shadow-md hover:shadow-black bg-gray-300 my-6 rounded-full p-2 hover:bg-gray-400"
+            type="submit"
+          >
+            Registrar
+          </button>
+        </form>
+      </FormikProvider>
     </>
   );
 };

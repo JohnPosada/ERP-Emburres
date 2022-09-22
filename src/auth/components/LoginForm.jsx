@@ -1,8 +1,12 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { startSignInWhitEmailandPassword } from '../../store/auth/thunks';
+import dotenv from 'dotenv';
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -10,19 +14,19 @@ export const LoginForm = () => {
     },
 
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(startSignInWhitEmailandPassword(values.email, values.password));
     },
   });
 
   return (
     <>
       <form className="w-full" onSubmit={formik.handleSubmit}>
-        <label className="text-white " htmlFor="email">
+        <label className="text-black font-medium " htmlFor="email">
           Correo electrónico
         </label>
 
         <input
-          className="shadow appearance-none border rounded w-full my-2 py-1 px-3 mr-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full my-2 py-1 px-3 mr-2 mb-3 text-gray-700 leading-tight focus:shadow-outline"
           id="email"
           placeholder="example@gmail.com"
           name="email"
@@ -31,12 +35,12 @@ export const LoginForm = () => {
           value={formik.values.email}
         />
 
-        <label className="text-white" htmlFor="password">
+        <label className="text-black font-medium " htmlFor="password">
           Contraseña
         </label>
 
         <input
-          className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:shadow-outline"
           id="password"
           placeholder="********"
           name="password"
@@ -44,18 +48,12 @@ export const LoginForm = () => {
           onChange={formik.handleChange}
           value={formik.values.password}
         />
-        <div className="w-full flex justify-between pt-2">
-          <p className="text-white">¿No tienes una cuenta?</p>
-          <Link
-            to="/auth/register"
-            className="underline text-white text-right hover:text-blue-700"
-          >
-            Registrate
-          </Link>
-        </div>
+        {/* <div className="w-full mt-3 bg-gray-400 rounded-xl py-1 px-3 flex justify-center">
+          <span className="text-red-600 w-full">error</span>
+        </div> */}
 
         <button
-          className="w-full inline-block shadow-yellow-400 shadow bg-gray-300 my-6 rounded-full p-2 hover:bg-gray-400"
+          className="w-full inline-block border border-black hover:shadow-md hover:shadow-black bg-gray-300 my-6 rounded-full p-2 hover:bg-gray-400"
           type="submit"
         >
           Ingresar
