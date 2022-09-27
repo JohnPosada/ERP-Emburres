@@ -1,7 +1,10 @@
 import { Field, FormikProvider, useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { startSignInWhitEmailandPassword } from '../../store/auth/thunks';
+import {
+  startRegisterUser,
+  startSignInWhitEmailandPassword,
+} from '../../store/auth/thunks';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -9,13 +12,13 @@ export const RegisterForm = () => {
     initialValues: {
       email: '',
       password: '',
-      username: '',
+      displayName: '',
       rol: '',
     },
 
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
-      // dispatch(startSignInWhitEmailandPassword(values.email, values.password));
+      dispatch(startRegisterUser(values));
     },
   });
 
@@ -43,10 +46,10 @@ export const RegisterForm = () => {
 
           <input
             className="shadow appearance-none border rounded w-full my-2 mr-2 py-1 px-3 text-gray-700 leading-tight focus:shadow-outline"
-            id="username"
-            placeholder="username"
-            name="username"
-            type="username"
+            id="displayName"
+            placeholder="Nombre de usuario"
+            name="displayName"
+            type="displayName"
             onChange={formik.handleChange}
             value={formik.values.username}
           />
