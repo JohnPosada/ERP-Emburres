@@ -11,6 +11,9 @@ module.exports = {
       boxShadow: {
         '3xl': '16px 16px 32px #c8c8c8',
       },
+      fontFamily: {
+        logo: 'Helvetica, Monaco',
+      },
     },
   },
   plugins: [],
