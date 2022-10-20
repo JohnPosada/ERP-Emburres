@@ -17,7 +17,6 @@ export const RegisterForm = () => {
     },
 
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
       dispatch(startRegisterUser(values));
     },
   });
@@ -76,9 +75,10 @@ export const RegisterForm = () => {
             id="rol"
             name="rol"
           >
-            <option value="rol1">rol1</option>
-            <option value="rol2">rol2</option>
-            <option value="rol3">rol3</option>
+            <option value="Gerente">Gerente</option>
+            <option value="Jefe de producción">Ingeniero de producción</option>
+            <option value="Jefe de despacho">Jefe de despacho</option>
+            <option value="Operario">Operario</option>
           </Field>
 
           <button
