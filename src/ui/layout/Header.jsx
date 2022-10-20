@@ -16,7 +16,7 @@ export const Header = () => {
 
   return (
     <div className="flex justify-between w-full mb-6">
-      <h1 className="text-3xl m-3 w-1/5">EMBURRES</h1>
+      <h1 className="text-3xl pl-4 pt-4 m-3 w-1/5 font-logo">EMBURRES</h1>
       <div className="w-4/5  flex flex-row-reverse justify-between">
         <div className="flex m-3 gap-2 flex-row-reverse self-center ">
           <BiLogOut

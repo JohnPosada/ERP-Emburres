@@ -8,12 +8,12 @@ export const Modal = ({ isOpen, closeModal, children }) => {
   return (
     <div
       className={`bg-black w-screen opacity-80 h-screen fixed top-0 left-0  ${
-        isOpen ? 'flex items-center justify-end' : 'hidden'
+        isOpen ? 'grid place-items-center ' : 'hidden'
       }`}
       onClick={closeModal}
     >
       <div
-        className=" bg-black flex justify-center"
+        className=" bg-black flex justify-center "
         onClick={handleModalDialogClick}
       >
         {children}
