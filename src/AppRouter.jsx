@@ -6,6 +6,7 @@ import { LoginPage } from './auth/pages/LoginPage';
 import { VehicleHome } from './vehicleControl/pages/VehicleHome';
 import Create from './vehicleControl/components/Create';
 import Edit from './vehicleControl/components/Edit';
+import { AuthRouter } from './auth/router/AuthRouter';
 
 export const AppRouter = () => {
   const { status } = useSelector((state) => state.auth);
@@ -15,7 +16,10 @@ export const AppRouter = () => {
         {status === 'authenticated' ? (
           <Route path="/*" element={<PrivateRoutes />} />
         ) : (
-          <Route path="/*" element={<LoginPage />} />
+          <>
+            <Route path="/*" element={<AuthRouter />} />
+            <Route path="/*" element={<Navigate to="/" />} />
+          </>
         )}
         {/* <Route path="/*" element={<Navigate to="/auth/login" />} /> */}
         <Route path="/vehicleHome" element={<VehicleHome />} />
