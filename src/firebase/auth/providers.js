@@ -39,7 +39,7 @@ export const registerUser = async ({ email, password, displayName, rol }) => {
       password
     );
     const { uid } = user;
-    setRolNewUser(uid, { rol });
+    await setRolNewUser(uid, { rol });
     await updateProfile(firebaseAuth.currentUser, { displayName });
     return true;
   } catch (error) {
