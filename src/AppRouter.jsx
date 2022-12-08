@@ -7,6 +7,8 @@ import { VehicleHome } from './vehicleControl/pages/VehicleHome';
 import Create from './vehicleControl/components/Create';
 import Edit from './vehicleControl/components/Edit';
 import { AuthRouter } from './auth/router/AuthRouter';
+import { CreateHome } from './vehicleControl/pages/CreateHome';
+import { EditHome } from './vehicleControl/pages/EditHome';
 
 export const AppRouter = () => {
   const { status } = useSelector((state) => state.auth);
@@ -23,8 +25,8 @@ export const AppRouter = () => {
         )}
         {/* <Route path="/*" element={<Navigate to="/auth/login" />} /> */}
         <Route path="/vehicleHome" element={<VehicleHome />} />
-        <Route path='/create' element={<Create/>}/>
-        <Route path='/edit/:id' element={<Edit/>}/>
+        <Route path='/create' element={<CreateHome/>}/>
+        <Route path='/edit/:id' element={<EditHome/>}/>
       </Routes>
     </>
   );

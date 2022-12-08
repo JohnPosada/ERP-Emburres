@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import {collection, getDocs, getDoc, deleteDoc} from 'firebase/firestore/lite';
+import {collection, getDocs, getDoc, deleteDoc, doc} from 'firebase/firestore/lite';
 import { firebaseDB } from '../../firebase/config';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { async } from '@firebase/util';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const mySwal = withReactContent(Swal)
 
@@ -18,58 +19,76 @@ const Show = () => {
         const datos = await getDocs(vehiculosCollection)
         //console.log(datos.docs)
         setVehiculos(
-          datos.docs.map((doc) => ({...doc.data(), id:doc.nombre}))
+          datos.docs.map((doc) => ({...doc.data(), id:doc.id}))
         )
       console.log(vehiculos)
     }
     //Funcion para eliminar documento
     const deleteVehiculos = async (id) => {
+      console.log(id)
       const vehiculoDoc = doc(firebaseDB, "vehiculos", id)
       await deleteDoc(vehiculoDoc)
       getVehiculos()
     }
 
     //Funcion de confirmación para sweet alert
-
+    const confirmDelete = (id) => {
+      mySwal.fire({
+        title: '¿Borrar producto?',
+        text: "No puedes revertir la acción",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'SI'
+      }).then((result) => {
+        if(result.isConfirmed){
+          deleteVehiculos(id)
+          Swal.fire(
+          'Borrar',
+          'El vehiculo ha sido borrado',
+          'Hecho!'
+        )
+        }
+      })
+    }
     //usar UsseEffect
     useEffect(() => {
         getVehiculos()
-        //eslint-disable-next-line
     }, [] )
 
     //Retornar la vista del componente
     return (
       <>
-      <div className='container'>
-        <div className='row'>
-          <div className='col'>
-            <div className='d-grid gap-2'>
-              <Link to="/create" className='btn btn-secondary mt-2 mb-2'>Create</Link>
-            </div>
-            <table className='table table-dark table-hover'>
-              <thead>
-                <tr> Nombre </tr>
-                <tr> Placa </tr>
-                <tr> Actions </tr>
-              </thead>
-
-              <tbody>
-                {vehiculos.map( (vehiculo) => (
-                    <tr key={vehiculo.id}>
-                      <td>{vehiculo.nombre}</td>
-                      <td>{vehiculo.placa}</td>
-                      <td>
-                        <Link to={`/edit/${vehiculo.id}`} className="btn btn-light">Editar</Link>
-                        <button onClick={ () => { deleteVehiculos(vehiculo.id)}} className="btn btn-danger" >Eliminar</button>
-                      </td>
-                    </tr>
-                ) ) }
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div className="p-6 w-full">
+      <div className="flex justify-between mb-8">
+        <h1 className="text-4xl">Gestión Vehiculos</h1>
+        <Link to="/create" className='btn btn-success'>Registrar vehículo</Link>
       </div>
-      </>
+      <table className='table table-light table-bordered'>
+      <thead>
+        <tr className='text-center table-active'>
+          <td>Nombre</td> 
+          <td>Placa</td> 
+          <td>Acciones</td>
+        </tr>
+        </thead>
+
+      <tbody>
+        {vehiculos.map( (vehiculo) => (
+        <tr className='text-center' key={vehiculo.id}>
+          <td>{vehiculo.nombre}</td>
+          <td>{vehiculo.placa}</td>
+          <td>
+            <Link to={`/edit/${vehiculo.id}`} className="btn btn-warning">Editar</Link>
+            <button onClick={ () => { confirmDelete(vehiculo.id)}} className="btn btn-danger" >Eliminar</button>
+          </td>
+        </tr>
+        ) ) }
+      </tbody>
+      </table>
+    </div>
+    </>
     )
   
 }

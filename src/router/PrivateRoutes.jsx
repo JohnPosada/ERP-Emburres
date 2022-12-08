@@ -5,6 +5,7 @@ import { Footer } from '../ui/layout/Footer';
 import { Route, Routes } from 'react-router-dom';
 import { SuppliersPage } from '../suppliers/page/SuppliersPage';
 import { SuppliersForm } from '../suppliers/component/SuppliersForm';
+import { VehicleHome } from '../vehicleControl/pages/VehicleHome';
 
 export const PrivateRoutes = () => {
   return (
@@ -16,6 +17,7 @@ export const PrivateRoutes = () => {
           <Route path="/proveedores" element={<SuppliersPage />} />
           <Route path="/proveedores/add" element={<SuppliersForm />} />
           <Route path="/proveedores/edit/:id" element={<SuppliersForm />} />
+          <Route path="/vehiculos" element={<VehicleHome />} />
         </Routes>
       </div>
       <Footer />

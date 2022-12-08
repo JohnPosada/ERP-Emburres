@@ -9,6 +9,7 @@ export const SideBar = () => {
     'Proveedores',
     'Pedidos',
     'Distribucion',
+    'Vehiculos'
   ];
   return (
     <>
